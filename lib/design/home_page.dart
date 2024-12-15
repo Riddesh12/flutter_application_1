@@ -50,7 +50,7 @@ class _HomePageState extends State<HomePage> {
 
   // Method to check connectivity and trigger syncing if connected
   Future<void> _checkConnectivityAndSync() async {
-    ConnectivityResult result = await Connectivity().checkConnectivity();
+    List<ConnectivityResult> result = await Connectivity().checkConnectivity();
     if (result != ConnectivityResult.none) {
       // There's internet, so sync transactions
       await _syncTransactions();

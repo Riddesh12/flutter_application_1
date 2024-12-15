@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
-import 'home_page.dart';
-import 'scan_page.dart';
-import 'send_page.dart';
-import 'some_second_page.dart';
-import 'transactions_page.dart';
+import 'design/home_page.dart';
+import 'design/scan_page.dart';
+import 'design/send_page.dart';
+import 'design/some_second_page.dart';
+import 'design/transactions_page.dart';
 
 void main() {
   // Initialize FFI for desktop platforms

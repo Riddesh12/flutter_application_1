@@ -3,11 +3,11 @@ package com.example.offline;
 import android.content.Intent;
 import android.net.Uri;
 import androidx.annotation.NonNull;
-import io.flutter.embedding.android.FlutterActivity;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.embedding.engine.FlutterEngine;
+import io.flutter.embedding.android.FlutterFragmentActivity;
 
-public class MainActivity extends FlutterActivity {
+public class MainActivity extends FlutterFragmentActivity {
     private static final String CHANNEL = "com.example.ussd";
     private MethodChannel methodChannel;
 

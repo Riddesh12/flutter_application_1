@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart'; // For reverse geocoding
 import 'package:connectivity_plus/connectivity_plus.dart'; // To check connectivity
+import 'package:offline/query/ussd.dart';
 import 'sync_manager.dart'; // Import SyncManager
 import 'scan_page.dart';
 import 'send_page.dart';
@@ -23,7 +24,8 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     _getCurrentLocation();
-    _checkConnectivityAndSync(); // Check for connectivity and sync transactions
+    _checkConnectivityAndSync();
+    UssdQuery().permission();// Check for connectivity and sync transactions
   }
 
   // Method to fetch the current location

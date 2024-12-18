@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:offline/query/data.dart';
+import 'package:offline/query/trascation_query.dart';
 import 'package:offline/query/ussd.dart';
 
 class SendPage extends StatelessWidget {
@@ -10,8 +12,6 @@ class SendPage extends StatelessWidget {
     final TextEditingController phoneController = TextEditingController();
     final TextEditingController amountController = TextEditingController();
     final TextEditingController remarkController = TextEditingController();
-
-    String onResponse = "";
 
     return Scaffold(
       body: Padding(
@@ -53,7 +53,7 @@ class SendPage extends StatelessWidget {
             TextField(
               controller: remarkController,
               decoration: InputDecoration(
-                labelText: 'Remark (if not enter 1)',
+                labelText: 'Remark (optional)',
                 border: OutlineInputBorder(),
                 prefixIcon: Icon(Icons.feedback),
               ),
@@ -65,7 +65,9 @@ class SendPage extends StatelessWidget {
                   // Fetch values from the controllers
                   String phone = phoneController.text;
                   String amount = amountController.text;
-                  String remark = remarkController.text;
+                  String remark = remarkController.text.isEmpty
+                      ? "1"
+                      : remarkController.text.trim();
                   // Simple validation
                   if (phone.isEmpty || amount.isEmpty || remark.isEmpty) {
                     ScaffoldMessenger.of(context).showSnackBar(
@@ -73,12 +75,23 @@ class SendPage extends StatelessWidget {
                     );
                   } else {
                     UssdQuery.sendUssdCode(
-                        "*99*1*1*${phoneController.text.trim()}*${amountController.text.trim()}*${remarkController.text.trim()}#");
+                        "*99*1*1*${phoneController.text.trim()}*${amountController.text.trim()}*$remark#");
+                    Variables.mapTransaction = {
+                      "payto": phoneController.text.trim(),
+                      "amount": amountController.text.trim(),
+                      "time": DateTime.now(),
+                      "location": "",
+                      "status": Variables.tranStatus,
+                      "remark": remark
+                    };
+                    Transaction()
+                        .transactionCheckAndAdd(Variables.mapTransaction);
                     UssdQuery.listenForUssdResponse((onResponse) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(content: Text(onResponse)),
                       );
                     });
+                    /////enter transaction code here and check transaction status
                   }
                 },
                 style: ElevatedButton.styleFrom(

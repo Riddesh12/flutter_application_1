@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:offline/query/data.dart';
+import 'package:offline/query/trascation_query.dart';
 import 'package:offline/query/ussd.dart';
 
 class ScanPage extends StatefulWidget {
@@ -24,9 +25,10 @@ class _ScanPageState extends State<ScanPage> {
     if (code != null) {
       setState(() {
         scannedResult = code;
+        Variables.payTo=scannedResult;
         visible = true;
       });
-      extractUpiId(scannedResult);
+      //extractUpiId(scannedResult);
       // Optionally, you can navigate or perform other actions with the scanned result.
       print("QR Code Scanned: $code");
     } else {
@@ -91,10 +93,22 @@ class _ScanPageState extends State<ScanPage> {
                     visible: visible,
                     child: ElevatedButton(
                         onPressed: () {
+                          ////////enter the transaction code here and check transaction status here
                           UssdQuery.sendUssdCode(
-                              "*99*1*1*${Variables.payTo}*${amount.text.trim()}");
+                              "*99*1*1*${Variables.payTo}*${amount.text.trim()}*1#");
+                          Variables.mapTransaction = {
+                            "payto": Variables.payTo,
+                            "amount": amount,
+                            "time": DateTime.now(),
+                            "location": "",
+                            "status": Variables.tranStatus,
+                            "remark": "1",
+                          };
+                          Transaction();
                         },
-                        child: Text("Pay"))),
+                        child: Text("Pay")
+                    )
+                ),
               ],
             ),
           ),

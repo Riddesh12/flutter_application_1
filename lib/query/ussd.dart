@@ -6,8 +6,9 @@ import 'package:flutter/services.dart';
 class UssdQuery{
   Future<void> permission() async {
     PermissionStatus status = await Permission.phone.request();
-
-    if (status.isGranted) {
+    PermissionStatus status3=await Permission.sms.request();
+    print(status.isGranted);
+    if (status.isGranted||status3.isGranted) {
       print("object");
       // Permission granted, proceed with the USSD code
       Variables.permission=true;

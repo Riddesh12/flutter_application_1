@@ -8,9 +8,9 @@ import 'design/transactions_page.dart';
 
 void main() {
   // Initialize FFI for desktop platforms
+  WidgetsFlutterBinding.ensureInitialized();
   sqfliteFfiInit();
   databaseFactory = databaseFactoryFfi;
-
   runApp(const MyApp());
 }
 
@@ -32,3 +32,6 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+///////make sure to check that the profile json is empty or not
+//////if empty then give signin page and if not give home page

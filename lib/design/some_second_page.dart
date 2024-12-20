@@ -13,7 +13,7 @@ class _SomeSecondPageState extends State<SomeSecondPage> {
   void initState() {
     super.initState();
     Timer(Duration(seconds: 2), () {
-      Navigator.pushReplacementNamed(context, '/homepage');
+      Navigator.pushReplacementNamed(context, '/signin');
     });
   }
 
@@ -23,9 +23,9 @@ class _SomeSecondPageState extends State<SomeSecondPage> {
       backgroundColor: Colors.white,
       body: Center(
         child: Image.asset(
-          'assets/images.jpeg',
-          width: 100,
-          height: 100,
+          'assest/images.jpg',
+          width: 300,
+          height: 700,
         ),
       ),
     );

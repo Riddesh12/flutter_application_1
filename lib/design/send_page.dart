@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:offline/design/receiver.dart';
 import 'package:offline/query/data.dart';
 import 'package:offline/query/trascation_query.dart';
 import 'package:offline/query/ussd.dart';
@@ -29,6 +30,12 @@ class SendPage extends StatelessWidget {
                   });
                 },
                 child: const Text("Check Amount")),
+            SizedBox(height: 16),
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>Receiver()));
+                },
+                child: const Text("Receive")),
             SizedBox(height: 16),
             TextField(
               controller: phoneController,

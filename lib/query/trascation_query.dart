@@ -14,7 +14,7 @@ class Transaction {
     requestPermission();/////direct call function without permission
     transaction['transaction_status'] = Variables.tranStatus;
     print(Variables.mapTransaction);
-    LogStatus().writeJson(transaction, "transaction.json");
+    LogStatus().writeJson(transaction, "transcation.json");
     // For now, just print the transaction
     Variables.tranStatus = "fail";
     ////// call log status here

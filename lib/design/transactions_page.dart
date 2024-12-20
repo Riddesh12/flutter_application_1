@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:offline/query/log_status.dart';
+import 'package:offline/query/ussd.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -10,7 +12,7 @@ class TransactionsPage extends StatefulWidget {
 }
 
 class _TransactionsPageState extends State<TransactionsPage> {
-  List<Map<String, dynamic>> transactions = [];
+  List<dynamic> transactions = [];
 
   @override
   void initState() {
@@ -22,7 +24,7 @@ class _TransactionsPageState extends State<TransactionsPage> {
     // Get the application documents directory
     final directory = await getApplicationDocumentsDirectory();
     final path =
-        '${directory.path}/offline_transactions.db'; // Set path for the database file
+        '${directory.path}/transcation.json'; // Set path for the database file
 
     // Open the database
     var db = await openDatabase(path);
@@ -33,6 +35,7 @@ class _TransactionsPageState extends State<TransactionsPage> {
 
     setState(() {
       transactions = result;
+      transactions=LogStatus().readJson("transcation.json") as List;
     });
   }
 
@@ -47,9 +50,8 @@ class _TransactionsPageState extends State<TransactionsPage> {
               itemBuilder: (context, index) {
                 var transaction = transactions[index];
                 return ListTile(
-                  title: Text('Transaction: ${transaction['data']}'),
-                  subtitle: Text(
-                      'Status: ${transaction['synced'] == 1 ? 'Synced' : 'Pending'}'),
+                  title: Text('Transaction: ${transaction['payto']}'),
+                  subtitle: Text(transaction['status']),
                 );
               },
             ),

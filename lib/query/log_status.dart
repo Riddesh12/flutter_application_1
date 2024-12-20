@@ -90,18 +90,31 @@ class LogStatus{
   }
 
   // Read the JSON file
-  Future<void> readJson(String fileName) async {
+  Future<List> readJson(String fileName) async {
     final filePath = await getFilePath(fileName);
     File file = File(filePath);
 
     if (!await file.exists()) {
       print("File does not exist.");
-      return;
+      return [];
     }
 
     // Read and print the content
     String fileContent = await file.readAsString();
     List<dynamic> jsonData = jsonDecode(fileContent);
     print('File content: $jsonData');
+    return jsonData;
+  }
+  Future<bool> fileIsEmpty(String fileName) async{
+    final filePath = await getFilePath(fileName);
+    final file= File(filePath);
+    if (!await file.exists()) {
+      await file.create();
+      return true;// Initialize with an empty array
+    }
+    final fileBytes = await file.readAsBytes();
+
+    // Check if the file is empty
+    return fileBytes.isEmpty;
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:offline/design/signin.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'design/home_page.dart';
 import 'design/scan_page.dart';
@@ -23,6 +24,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: SomeSecondPage(),
       routes: {
+        '/signin' : (context) => LogInState(),
         '/homepage': (context) => HomePage(),
         '/scanpage': (context) => ScanPage(),
         '/sendpage': (context) => SendPage(),
